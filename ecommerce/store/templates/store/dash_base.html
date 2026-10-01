@@ -1,0 +1,10 @@
+{% extends 'store/base.html' %}
+{% block content %}
+<ul class="nav nav-pills mb-4">
+  <li class="nav-item"><a class="nav-link {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}" href="{% url 'dashboard' %}">Overview</a></li>
+  <li class="nav-item"><a class="nav-link {% if 'product' in request.resolver_match.url_name %}active{% endif %}" href="{% url 'dash_products' %}">Products</a></li>
+  <li class="nav-item"><a class="nav-link {% if 'order' in request.resolver_match.url_name %}active{% endif %}" href="{% url 'dash_orders' %}">Orders</a></li>
+  <li class="nav-item"><a class="nav-link" href="{% url 'admin:index' %}">Django Admin</a></li>
+</ul>
+{% block dash %}{% endblock %}
+{% endblock %}

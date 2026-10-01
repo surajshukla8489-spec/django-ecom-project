@@ -1,0 +1,18 @@
+{% extends 'store/base.html' %}
+{% block title %}Login{% endblock %}
+{% block content %}
+<div class="row justify-content-center"><div class="col-md-5">
+  <div class="card shadow-sm"><div class="card-body">
+    <h3 class="mb-3">Login</h3>
+    {% if next %}<div class="alert alert-warning py-2">Aage badhne ke liye pehle login karein.</div>{% endif %}
+    <form method="post">{% csrf_token %}
+      <input type="hidden" name="next" value="{{ next }}">
+      {% if form.non_field_errors %}<div class="alert alert-danger">{{ form.non_field_errors.0 }}</div>{% endif %}
+      <div class="mb-3"><label class="form-label">Username</label><input name="username" class="form-control" required autofocus></div>
+      <div class="mb-3"><label class="form-label">Password</label><input type="password" name="password" class="form-control" required></div>
+      <button class="btn btn-primary w-100">Login</button>
+    </form>
+    <p class="mt-3 mb-0 small">Account nahi hai? <a href="{% url 'register' %}">Register karein</a></p>
+  </div></div>
+</div></div>
+{% endblock %}

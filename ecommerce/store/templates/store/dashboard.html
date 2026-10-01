@@ -1,0 +1,20 @@
+{% extends 'store/dash_base.html' %}
+{% block title %}Dashboard{% endblock %}
+{% block dash %}
+
+<div class="row g-3 mb-4">
+  <div class="col-md-3"><div class="card text-bg-primary"><div class="card-body"><div>Products</div><h2>{{ product_count }}</h2></div></div></div>
+  <div class="col-md-3"><div class="card text-bg-success"><div class="card-body"><div>Orders</div><h2>{{ order_count }}</h2></div></div></div>
+  <div class="col-md-3"><div class="card text-bg-info"><div class="card-body"><div>Users</div><h2>{{ user_count }}</h2></div></div></div>
+  <div class="col-md-3"><div class="card text-bg-warning"><div class="card-body"><div>Revenue</div><h2>₹{{ revenue }}</h2></div></div></div>
+</div>
+<div class="row g-4">
+  <div class="col-md-7"><div class="card"><div class="card-header">Recent Orders</div>
+    <table class="table mb-0"><tr><th>#</th><th>User</th><th>Total</th><th>Status</th></tr>
+    {% for o in recent_orders %}<tr><td>{{ o.pk }}</td><td>{{ o.user.username }}</td><td>₹{{ o.total }}</td><td>{{ o.status }}</td></tr>
+    {% empty %}<tr><td colspan="4" class="text-muted">Koi order nahi</td></tr>{% endfor %}</table></div></div>
+  <div class="col-md-5"><div class="card"><div class="card-header">Low Stock (≤5)</div>
+    <ul class="list-group list-group-flush">{% for p in low_stock %}<li class="list-group-item d-flex justify-content-between">{{ p.name }}<span class="badge text-bg-danger">{{ p.stock }}</span></li>
+    {% empty %}<li class="list-group-item text-muted">Sab theek hai</li>{% endfor %}</ul></div></div>
+</div>
+{% endblock %}

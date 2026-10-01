@@ -1,0 +1,23 @@
+{% extends 'store/base.html' %}
+{% block content %}
+<form class="row g-2 mb-4" method="get">
+  <div class="col"><input name="q" value="{{ q }}" class="form-control" placeholder="Product search karein..."></div>
+  <div class="col-auto"><button class="btn btn-primary">Search</button></div>
+</form>
+<div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
+{% for p in products %}
+  <div class="col"><div class="card h-100 shadow-sm">
+    {% if p.image %}<img src="{{ p.image.url }}" class="card-img-top" style="height:200px;object-fit:cover" alt="{{ p.name }}">
+    {% else %}<div class="bg-secondary-subtle d-flex align-items-center justify-content-center text-muted" style="height:200px">No Image</div>{% endif %}
+    <div class="card-body">
+      <h5 class="card-title">{{ p.name }}</h5>
+      <p class="fw-bold text-success mb-1">₹{{ p.price }}</p>
+      {% if p.stock == 0 %}<span class="badge text-bg-danger">Out of stock</span>{% endif %}
+    </div>
+    <div class="card-footer bg-white"><a href="{% url 'product_detail' p.pk %}" class="btn btn-outline-primary w-100">View</a></div>
+  </div></div>
+{% empty %}
+  <p class="text-muted">Abhi koi product nahi hai.</p>
+{% endfor %}
+</div>
+{% endblock %}

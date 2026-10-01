@@ -1,0 +1,25 @@
+{% extends 'store/base.html' %}
+{% block title %}{{ product.name }}{% endblock %}
+{% block content %}
+<div class="row g-4">
+  <div class="col-md-5">
+    {% if product.image %}<img src="{{ product.image.url }}" class="img-fluid rounded shadow-sm" alt="{{ product.name }}">
+    {% else %}<div class="bg-secondary-subtle rounded d-flex align-items-center justify-content-center" style="height:300px">No Image</div>{% endif %}
+  </div>
+  <div class="col-md-7">
+    <h2>{{ product.name }}</h2>
+    <h3 class="text-success">₹{{ product.price }}</h3>
+    <p>{{ product.description|linebreaksbr }}</p>
+    {% if product.stock > 0 %}
+      <p class="text-muted">Stock: {{ product.stock }}</p>
+      <form method="post" action="{% url 'add_to_cart' product.pk %}" class="d-flex gap-2 flex-wrap">
+        {% csrf_token %}
+        <input type="number" name="quantity" value="1" min="1" max="{{ product.stock }}" class="form-control" style="width:90px">
+        <button class="btn btn-outline-primary">Add to Cart</button>
+        <button name="buy_now" value="1" class="btn btn-success">Buy Now</button>
+      </form>
+      {% if not user.is_authenticated %}<p class="small text-muted mt-2">Buy karne ke liye login karna hoga.</p>{% endif %}
+    {% else %}<span class="badge text-bg-danger fs-6">Out of stock</span>{% endif %}
+  </div>
+</div>
+{% endblock %}

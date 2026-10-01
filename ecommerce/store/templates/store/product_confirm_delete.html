@@ -1,0 +1,11 @@
+{% extends 'store/dash_base.html' %}
+{% block title %}Delete Product{% endblock %}
+{% block dash %}
+<div class="card card-body shadow-sm">
+  <h4>Kya aap "{{ object.name }}" delete karna chahte hain?</h4>
+  <form method="post">{% csrf_token %}
+    <button class="btn btn-danger">Haan, Delete</button>
+    <a href="{% url 'dash_products' %}" class="btn btn-outline-secondary">Cancel</a>
+  </form>
+</div>
+{% endblock %}

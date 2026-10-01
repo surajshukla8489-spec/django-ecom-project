@@ -1,0 +1,9 @@
+{% extends 'store/base.html' %}
+{% block content %}
+<div class="text-center py-5">
+  <h1 class="text-success">✅ Order Placed!</h1>
+  <p>Order #{{ order.pk }} — Total ₹{{ order.total }}</p>
+  <a href="{% url 'my_orders' %}" class="btn btn-primary">My Orders</a>
+  <a href="{% url 'home' %}" class="btn btn-outline-secondary">Continue Shopping</a>
+</div>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'store/base.html' %}
+{% block title %}My Orders{% endblock %}
+{% block content %}
+<h3>My Orders</h3>
+{% for o in orders %}
+<div class="card mb-3 shadow-sm">
+  <div class="card-header d-flex justify-content-between"><span>Order #{{ o.pk }} — {{ o.created_at|date:"d M Y, H:i" }}</span><span class="badge text-bg-info">{{ o.status }}</span></div>
+  <ul class="list-group list-group-flush">
+    {% for i in o.items.all %}<li class="list-group-item d-flex justify-content-between">{{ i.name }} × {{ i.quantity }}<span>₹{{ i.subtotal }}</span></li>{% endfor %}
+  </ul>
+  <div class="card-footer fw-bold">Total: ₹{{ o.total }}</div>
+</div>
+{% empty %}<p class="text-muted">Aapne abhi tak koi order nahi kiya.</p>{% endfor %}
+{% endblock %}

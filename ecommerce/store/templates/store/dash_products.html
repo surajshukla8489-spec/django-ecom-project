@@ -1,0 +1,16 @@
+{% extends 'store/dash_base.html' %}
+{% block title %}Manage Products{% endblock %}
+{% block dash %}
+<div class="d-flex justify-content-between mb-3"><h3>Products</h3><a href="{% url 'dash_product_add' %}" class="btn btn-success">+ Add Product</a></div>
+<div class="table-responsive"><table class="table bg-white align-middle">
+  <thead><tr><th>Image</th><th>Name</th><th>Price</th><th>Stock</th><th>Actions</th></tr></thead>
+  {% for p in products %}
+  <tr>
+    <td>{% if p.image %}<img src="{{ p.image.url }}" width="50" height="50" style="object-fit:cover" class="rounded">{% endif %}</td>
+    <td>{{ p.name }}</td><td>₹{{ p.price }}</td><td>{{ p.stock }}</td>
+    <td><a href="{% url 'dash_product_edit' p.pk %}" class="btn btn-sm btn-primary">Edit</a>
+        <a href="{% url 'dash_product_delete' p.pk %}" class="btn btn-sm btn-danger">Delete</a></td>
+  </tr>
+  {% empty %}<tr><td colspan="5" class="text-muted">Koi product nahi. "Add Product" dabayein.</td></tr>{% endfor %}
+</table></div>
+{% endblock %}
